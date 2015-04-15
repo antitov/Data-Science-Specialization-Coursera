@@ -1,0 +1,24 @@
+## eapply(.GlobalEnv,typeof) check types of variables
+## table(is.na(data[,"Ozone",drop=FALSE]))["TRUE"]
+source("week1data.R")
+good<-complete.cases(data)
+eapply(.GlobalEnv,typeof)
+dataOzone<-data[,"Ozone",drop=FALSE]
+goodOzone<-complete.cases(dataOzone)
+Print("Mean Value Ozone ")
+mean(dataOzone[goodOzone,])
+
+dataOz3190<-data[dataOzone>31&dataOzone<90,]
+Solar3190<-dataOz3190[,"Solar.R",drop=FALSE]
+GoodSolar3190<-complete.cases(Solar3190)
+mean(Solar3190[GoodSolar3190,])
+
+Mon6<-datagood[datagood[,"Month"]==6,]
+mean(Mon6[,"Temp"])
+Mon6raw<-data[data[,"Month"]==6,]
+mean(Mon6raw[,"Temp"])
+Mon5raw<-data[data[,"Month"]==5,]
+Mon5<-datagood[datagood[,"Month"]==5,]
+Max(Mon5[,"Ozone"])
+   
+    
