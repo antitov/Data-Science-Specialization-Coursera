@@ -1,0 +1,117 @@
+l
+ls
+search()
+kernsmooth
+KermSmooth
+search()
+install.packages(c("codetools", "lattice", "MASS", "Matrix", "mgcv"))
+library(devtools)
+remove.packages("KernSmooth")
+install.packages("KernSmooth")
+getwd()
+setwd("C:/Users/a.titov/Rprog/week1")
+getwd()
+Print("hello")
+print("hello")
+install(Swirl)
+install.packages("swirl")
+swirl
+library(swirl)
+swirl()
+swirl()
+5+7
+x<5+7
+x<-5+7
+x
+y<-x
+y<-x-3
+y
+z<-c(1.1,9,3.14)
+?c
+?c
+z
+c(z,555)
+c(z,555,z)
+z*2+100
+my_sqrt<-sqrt(z-1)
+my_sqrt
+my_div<-z/mysqrt
+my_div<-z/my_sqrt
+my_div
+c(1,2,3,4)+c(0,10)
+c(1,2,3,4)+c(0,10,100)
+z*2+1000
+my_div
+bye()
+swirl()
+bye()
+swirl()
+getwd()
+ls*()
+ls()
+x<-0
+x<-9
+ls()
+dir()
+?list.files
+args(list.files)
+old.dir<-getwd()
+play()
+getwd()
+nxt()
+dir.create("testdir")
+setwd("testdir")
+file.create("mytest.R")
+ls()
+dir()
+list.files()
+file.exists("mytest.R")
+file.info("mytest.R")
+play()
+?file.rename
+nxt()
+file.rename("mytest.R","mytest2.R")
+file.copy("mytest2.R","mytest2.R")
+file.copy("mytest2.R","mytest3.R")
+file.path("mytest3.R")
+play()
+?file.path
+path<-file.path("mytest3.R")
+path
+nxt()
+play()
+args(file.path)
+file.path("folder1","folder2")
+nxt()
+file.path("folder1","folder2")
+?dir.create
+dir.create(file.path("folder1","folder2"),,FALSE)
+dir.create(file.path("folder1","folder2"),recursive=TRUE)
+dir.create(file.path("testdir1","testdir2"),recursive=TRUE)
+dir.create(file.path("testdir2","testdir3"),recursive=TRUE)
+unlink("testdir2/", recursive=TRUE)
+unlink("testdir2", recursive=TRUE)
+setwd("old.dir")
+old.dir
+setwd(old.dir)
+unlink("testdir", recursive=TRUE)
+1:20
+pi:10
+15:1
+?`:`
+seq(1:20)
+seq(1, 20)
+seq(0, 10, by=0.5)
+seq(0, 10, length=30)
+seq(5, 10, length=30)
+myseq <- seq(5, 10, length=30)
+my_seq <- seq(5, 10, length=30)
+length(my_seq)
+1:length(my_seq)
+seq(along.with = my_seq)
+seq_along(my_seq)
+rep(0, times = 40)
+rep(c(0, 1, 2), times = 40)
+rep(c(0, 1, 2), times = 10)
+rep(c(0, 1, 2), each = 10)
+savehistory("C:/Users/a.titov/rprog/week1/swirl1-2-3.his")
