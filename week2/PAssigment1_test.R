@@ -1,4 +1,4 @@
-air1 <-read.csv("070.csv")
+air1 <-read.csv("275.csv")
 air2 <-read.csv("071.csv")
 air3 <-read.csv("072.csv")
 poll <- "nitrate"
