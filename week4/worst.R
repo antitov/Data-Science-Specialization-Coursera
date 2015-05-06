@@ -1,4 +1,4 @@
-best <- function(state, outcome) {
+worst <- function(state, outcome) {
         #checking for statre validity
         statelist <- sort(unique(outcomeData$State))
         if (sum(state == statelist)!=1) {
@@ -27,7 +27,7 @@ best <- function(state, outcome) {
         #creating logical matrix for specific state
         statematr <- outcomeData$State == state
         outcomevalue <- outcomeData[statematr,][as.character(outcomematr[outchkDot[indout]])]
-        outcomelogic <- outcomevalue == min(outcomevalue) 
+        outcomelogic <- outcomevalue == max(outcomevalue) 
         #finding best Hospital and getting the aphabetically first one if there is more than 1
         besthosp <- outcomeData[statematr,][outcomelogic,]$Hospital.Name
         if(length(besthosp)==1) {
