@@ -1,0 +1,115 @@
+library(xlsx)
+?read.xlsx
+nag <- read.xlsx("getdata-data-DATA.gov_NGAP.xlsx",1)
+head(nag)
+dat <- nag[18:23, 7:15]
+dat
+dat <- nag[17:22, 7:15]
+dat
+dat <- nag[17:23, 7:15]
+dat[1,]
+class(dat[1,])
+as.list(dat[1,])
+dat[1,]
+dat[1,][1]
+dat[1,][[1]]
+dat[[1,]]
+dat[[1]]
+dat[1]
+names(dat[1]) <- "zip"
+dat[1]
+dat
+names(dat) <- "zip"
+dat
+dat[1,]
+dat[1,][1:7]
+namez <- dat[1,]
+names(namez) <- NULL
+namez
+c(namez)
+unlist(c(namez))
+unlist(c(namez))[1:7]
+unlist(c(namez))õõ1úú
+unlist(c(namez)[[1]]
+namez\
+names
+namez
+namez[1:7]
+c(namez[1:7])
+unlist(c(namez[1:7]))
+namez <- unlist(c(namez[1:7]))
+namez
+namezõõ1úú
+namez[[1úú
+namez[[1]]
+class(namez)
+as.list(namez)
+as.ñ(namez)
+as.ñhar(namez)
+names
+dat
+names(dat) <- c("zip",,,,,"Ext")
+names(dat) <- c("zip","CC","CC1","CC2","CC3","Ext")
+dat
+dat[2:6,]
+dat<-dat[2:6,]
+sum(dat$zip*dat$Ext,na.rm=T) 
+801120*456
+sum(dat$zip*dat$Ext,na.rm=TRUE) 
+dat$zip
+dat$zipõõ1úú
+dat$zip[1]
+dat$Ext
+dat$zip*dat$Ext
+dat$zip%*%dat$Ext
+dat$zip*dat$Ext
+dat$zip
+library(XML)
+install.packages("XML")
+library(XML)
+fileURL <- "https://d396qusza40orc.cloudfront.net/getdata%2Fdata%2Frestaurants.xml 
+"
+fileURL
+fileURL <- "https://d396qusza40orc.cloudfront.net/getdata%2Fdata%2Frestaurants.xml"
+fileURL
+doc <- xmlTreeParse(fileURL, useInternal = TRUE)
+doc <- xmlTreeParse(fileURL)
+doc <- xmlInternalTreeParse(fileURL)
+doc <- xmlInternalTreeParse(fileURL, method = "curl")
+library(RCurl)
+xdata <- getURL(fileURL)
+filexml <- "getdata%2Fdata%2Frestaurants.xml"
+doc <- xmlInternalTreeParse(filexml)
+doc
+rootNode <- xmlRoot(doc)
+xmlName(rootNode)
+names(rootNode)
+rootNode[[1]]
+xpathSApply(rootNode,"//zipcode", xmlValue)
+xpathSApply(rootNode,"//zipcode", xmlValue) == 21231
+sum(xpathSApply(rootNode,"//zipcode", xmlValue) == 21231)
+fileURL <- "https://d396qusza40orc.cloudfront.net/getdata%2Fdata%2Fss06pid.csv 
+"
+download.file(fileURL, destfile = "fss.csv")
+ss06pid <- read.csv("ss06pid.csv")
+library(data.table)
+install.packages("data.table")
+library(data.table)
+?fread
+?fread
+DT <- fread(ss06pid)
+DT <- fread("ss06pid.csv")
+head(DT)
+system.time(sapply(split(DT$pwgtp15,DT$SEX),mean))
+sapply(split(DT$pwgtp15,DT$SEX),mean)
+system.time(sapply(split(DT$pwgtp15,DT$SEX),mean))
+system.time(rowMeans(DT)[DT$SEX==1]; rowMeans(DT)[DT$SEX==2])
+system.time(rowMeans(DT)[DT$SEX==1]; rowMeans(DT)[DT$SEX==2])
+rowMeans(DT)[DT$SEX==1]; rowMeans(DT)[DT$SEX==2]
+DT[,mean(pwgtp15),by=SEX]
+system.time(DT[,mean(pwgtp15),by=SEX])
+system.time(fread("ss06pid.csv"))
+system.time(tapply(DT$pwgtp15,DT$SEX,mean))
+system.time(mean(DT[DT$SEX==1,]$pwgtp15); mean(DT[DT$SEX==2,]$pwgtp15))
+system.time({mean(DT[DT$SEX==1,]$pwgtp15); mean(DT[DT$SEX==2,]$pwgtp15)})
+system.time({tapply(DT$pwgtp15,DT$SEX,mean)})
