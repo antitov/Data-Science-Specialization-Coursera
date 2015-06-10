@@ -1,3 +1,5 @@
+#install_from_swirl("Getting and Cleaning Data")
+
 #question 1
 #Apply strsplit() to split all the names of the data frame on the characters "wgtp".
 #What is the value of the 123 element of the resulting list?
@@ -34,7 +36,7 @@ fileURLedu <- "https://d396qusza40orc.cloudfront.net/getdata%2Fdata%2FEDSTATS_Co
 download.file(fileURLedu, destfile = "GDPedu.csv")
 GDPedu <- data.table(read.csv("GDPedu.csv"))
                                              "Long.Name", "gdp"))
-file.remove("DPedu.csv")
+file.remove("GDPedu.csv")
 GDPmerged <- merge(GDP,GDPedu, all = TRUE, by = c("CountryCode"))
 fiscal <- grep("[fF]iscal year end: June",GDPmerged$Special.Notes)
 length(fiscal)
