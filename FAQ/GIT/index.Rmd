@@ -3,3 +3,5 @@
 * `$ git checkout -b branchname` = create new branch
 * `$  git remote add origin https://github.com/your-user-name-goes-here/test-repo.git` = creating new repo
 * `$ git pull origin master` = pulls from remote repo to your local one
+* `$ git config --global user.name "John Doe"` = configuring your username
+* `$ git config --global user.email johndoe@example.com` = configuring your email
