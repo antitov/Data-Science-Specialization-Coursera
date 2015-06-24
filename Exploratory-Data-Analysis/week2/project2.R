@@ -55,17 +55,45 @@ dev.off()
 #in emissions from 1999–2008 for Baltimore City? Which have seen increases 
 #in emissions from 1999–2008? Use the ggplot2 plotting system to make a plot 
 #answer this question.
+library(ggplot2)
+NEIBalti <- filter(NEI, fips == "24510")
+NEIBaltiYearsPointsSum <- summarise(group_by(NEIBalti, year, type),
+                              pm2.5 = sum(Emissions, na.rm = TRUE))
+
+g <- ggplot(NEIBaltiYearsPointsSum, aes(year, pm2.5))
+p <- g + geom_point() + facet_wrap( ~ type) + 
+  geom_smooth(method = "lm", se = FALSE) +
+  scale_x_continuous(breaks =  c(1999, 2002, 2005, 2008)) +   
+  labs(title = "PM2.5 emissions in Baltimore by type") +
+  labs(y = "PM2.5, tons")
+print(p) 
 
 
 
+#question 4:
+#Across the United States, how have emissions from coal combustion-related sources changed 
+#from 1999–2008?
+coalgrepl <- function(row) {
+  any(grepl("Coal", row))
+  }
+#getting SCC codes for coal combustion-related sources
+coalSCC <- SCC[sapply((SCC$EI.Sector), coalgrepl),]$SCC
+#filtering NEI by only coal combustion-related sources
+NEIcoalSCC <- filter(NEI, SCC %in% coalSCC)
+NEIcoalSCCYearsSum <- summarise(group_by(NEIcoalSCC, year),
+                                    pm2.5 = sum(Emissions, na.rm = TRUE)/1e+3)
 
+#NEIcoalSCCYearsSum <- NEIcoalSCCYearsSum$pm2.5/1e+3
 
+g <- ggplot(NEIcoalSCCYearsSum, aes(year, pm2.5))
+p <- g + geom_point() + 
+  geom_smooth(method = "lm", se = FALSE) +
+  scale_y_continuous(limits = c(0, 600)) +
+  scale_x_continuous(breaks =  c(1999, 2002, 2005, 2008)) +   
+  labs(title = "PM2.5 for only coal combustion-related soureces") +
+  labs(y = "PM2.5, 1000 of tons")
+print(p) 
 
-
-
-
-
-#Across the United States, how have emissions from coal combustion-related sources changed from 1999–2008?
 
 #How have emissions from motor vehicle sources changed from 1999–2008 in Baltimore City?
 
