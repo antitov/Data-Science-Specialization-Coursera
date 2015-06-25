@@ -22,7 +22,7 @@ sumsYears <- sumsYears/1e+6
 Years <- c(1999, 2002, 2005, 2008)
 xaxis <- 1:4
 par(mfrow = c(1,1))
-png(filename = "plot1.png", width = 480, height = 300)
+png(filename = "plot1.png", width = 640, height = 300)
 plot(xaxis, sumsYears, pch = 20, col = "red",
      ylab = "PM2.5, millons of tons", xlab = "Years", xaxt = "n", ylim = c(0, 8))
 axis(1, at = 1:4, Years)
@@ -37,7 +37,7 @@ dev.off()
 #system to make a plot answering this question.
 library(dplyr)
 par(mfrow = c(1,1))
-png(filename = "plot2.png", width = 480, height = 480)
+png(filename = "plot2.png", width = 640, height = 480)
 NEIBalti <- filter(NEI, fips == "24510")
 NEIBaltiYearsSum <- summarise(group_by(NEIBalti, year),
                               pm2.5 = sum(Emissions, na.rm = TRUE))
@@ -60,6 +60,7 @@ NEIBalti <- filter(NEI, fips == "24510")
 NEIBaltiYearsPointsSum <- summarise(group_by(NEIBalti, year, type),
                               pm2.5 = sum(Emissions, na.rm = TRUE))
 
+png(filename = "plot3.png", width = 640, height = 300)
 g <- ggplot(NEIBaltiYearsPointsSum, aes(year, pm2.5))
 p <- g + geom_point() + facet_wrap( ~ type) + 
   geom_smooth(method = "lm", se = FALSE) +
@@ -67,6 +68,7 @@ p <- g + geom_point() + facet_wrap( ~ type) +
   labs(title = "PM2.5 emissions in Baltimore by type") +
   labs(y = "PM2.5, tons")
 print(p) 
+dev.off()
 
 
 
@@ -75,6 +77,7 @@ print(p)
 #from 1999–2008?
 coalgrepl <- function(row) {
   any(grepl("Coal", row))
+  #grepl("Coal", row)
   }
 #getting SCC codes for coal combustion-related sources
 coalSCC <- SCC[sapply((SCC$EI.Sector), coalgrepl),]$SCC
@@ -83,8 +86,7 @@ NEIcoalSCC <- filter(NEI, SCC %in% coalSCC)
 NEIcoalSCCYearsSum <- summarise(group_by(NEIcoalSCC, year),
                                     pm2.5 = sum(Emissions, na.rm = TRUE)/1e+3)
 
-#NEIcoalSCCYearsSum <- NEIcoalSCCYearsSum$pm2.5/1e+3
-
+png(filename = "plot4.png", width = 640, height = 300)
 g <- ggplot(NEIcoalSCCYearsSum, aes(year, pm2.5))
 p <- g + geom_point() + 
   geom_smooth(method = "lm", se = FALSE) +
@@ -93,8 +95,64 @@ p <- g + geom_point() +
   labs(title = "PM2.5 for only coal combustion-related soureces") +
   labs(y = "PM2.5, 1000 of tons")
 print(p) 
-
-
+dev.off()
+#question 5
 #How have emissions from motor vehicle sources changed from 1999–2008 in Baltimore City?
+#filtering inly Baltimore emissions
+NEIBalti <- filter(NEI, fips == "24510")
+#Creating function which for finding "Vehicles"
+Vehiclegrepl <- function(row) {
+  any(grepl("Vehicles", row))
+}
+#Subsetting SCC's by vehicle type emissions
+VehicleSCC <- SCC[sapply((SCC$EI.Sector), Vehiclegrepl),]$SCC
+#Filtering Baltimore Dataset by "Vehicle" SCCs
+NEIVehicleSCCBalti <- filter(NEIBalti, SCC %in% VehicleSCC)
+#Summarising dataset by year 
+NEIVehicleSCCYearsSumBalti <- summarise(group_by(NEIVehicleSCCBalti, year),
+                                pm2.5 = sum(Emissions, na.rm = TRUE))
 
-#Compare emissions from motor vehicle sources in Baltimore City with emissions from motor vehicle sources in Los Angeles County, California (fips == "06037"). Which city has seen greater changes over time in motor vehicle emissions?
+png(filename = "plot5.png", width = 640, height = 300)
+g <- ggplot(NEIVehicleSCCYearsSumBalti, aes(year, pm2.5))
+p <- g + geom_point() + 
+  geom_smooth(method = "lm", se = FALSE) +
+  scale_y_continuous(limits = c(0, 600)) +
+  scale_x_continuous(breaks =  c(1999, 2002, 2005, 2008)) +   
+  labs(title = "PM2.5 for motor vehicle sources for Baltimore") +
+  labs(y = "PM2.5, tons")
+print(p) 
+dev.off()
+#question 6
+#Compare emissions from motor vehicle sources in Baltimore City with emissions from
+#motor vehicle sources in Los Angeles County, California (fips == "06037"). 
+#Which city has seen greater changes over time in motor vehicle emissions?
+library(dplyr)
+NEIBaltiLA <- filter(NEI, fips %in% c("24510","06037"))
+#Creating function which for finding "Vehicles"
+Vehiclegrepl <- function(row) {
+  any(grepl("Vehicles", row))
+}
+#Subsetting SCC's by vehicle type emissions
+VehicleSCC <- SCC[sapply((SCC$EI.Sector), Vehiclegrepl),]$SCC
+#Filtering Baltimore+LA Dataset by "Vehicle" SCCs
+NEIVehicleSCCBaltiLA <- filter(NEIBaltiLA, SCC %in% VehicleSCC)
+#Summarising dataset by year 
+NEIVehicleSCCYearsSumBaltiLA <- summarise(group_by(NEIVehicleSCCBaltiLA, year, fips),
+                                        pm2.5 = sum(Emissions, na.rm = TRUE))
+
+
+NEIVehicleSCCYearsSumBaltiLA$fips[NEIVehicleSCCYearsSumBaltiLA$fips %in% "06037"] <- "Los Angeles County, CA"
+NEIVehicleSCCYearsSumBaltiLA$fips[NEIVehicleSCCYearsSumBaltiLA$fips %in% "24510"] <- "Baltimore" 
+
+NEIVehicleSCCYearsSumBaltiLA$fips <- factor(NEIVehicleSCCYearsSumBaltiLA$fips)
+
+png(filename = "plot6.png", width = 640, height = 300)
+g <- ggplot(NEIVehicleSCCYearsSumBaltiLA, aes(year, pm2.5))
+p <- g + geom_point() + facet_wrap( ~ fips, scales = "free") +
+  geom_smooth(method = "lm", se = FALSE) +
+  scale_x_continuous(breaks =  c(1999, 2002, 2005, 2008)) +   
+  labs(title = "PM2.5 for motor vehicle sources for LA and Baltimore") +
+  labs(y = "PM2.5, tons") 
+  
+print(p) 
+dev.off()
