@@ -1,0 +1,17 @@
+pal <- colorRamp(c("yellow", "green"))
+pal(1)
+pal(0)
+pal(seq(0,1, length = 10))
+
+pal <- colorRampPalette(c("yellow", "green"))
+library(RColorBrewer)
+cols <- brewer.pal(3,"BuGn")
+pal <- colorRampPalette(cols)
+image(volcano, col = heat.colors(10))
+image(volcano, col = pal(10))
+image(volcano, col = topo.colors(10))
+#smooth scatter
+x <-rnorm(1000)
+y <-rnorm(1000)
+plot(x,y, col = rgb(0,0,0,0.1), pch = 20)
+smoothScatter(x,y)
